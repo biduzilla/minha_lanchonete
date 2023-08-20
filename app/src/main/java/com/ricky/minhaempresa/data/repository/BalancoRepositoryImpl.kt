@@ -24,6 +24,4 @@ class BalancoRepositoryImpl @Inject constructor(private val dao: Database) : Bal
             dataHoje = dataHoje
         )
     }
-
-
 }
