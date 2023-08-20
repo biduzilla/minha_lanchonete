@@ -15,6 +15,8 @@ interface BalancoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBalanco(balanco: Balanco)
     @Query("SELECT * FROM Balanco WHERE SUBSTR(data, 4, 2) = :mes AND SUBSTR(data, 7, 4) = :ano")
-    fun getRegistrosDoMesEAno(mes: String, ano: String): List<Balanco>
+    suspend fun getRegistrosDoMesEAno(mes: String, ano: String): Flow<List<Balanco>>
+    @Query("SELECT * FROM Balanco WHERE data BETWEEN :dataSeteDiasAtras AND :dataHoje")
+    suspend fun getBalancosDaSemana(dataSeteDiasAtras: String, dataHoje: String): Flow<List<Balanco>>
 
 }
