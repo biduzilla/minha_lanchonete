@@ -3,6 +3,7 @@ package com.ricky.minhaempresa.presentation.home.components
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,11 +16,11 @@ import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 
 @Composable
 fun BottomNavigation(navController: NavController) {
-
     val items = listOf(
         BottomNavItem.Produto,
-        BottomNavItem.Balanco
+        BottomNavItem.Balanco,
     )
+
     NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -27,6 +28,15 @@ fun BottomNavigation(navController: NavController) {
         items.forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
+                label = { Text(text = item.title) },
+                colors = NavigationBarItemDefaults.colors(),
+                alwaysShowLabel = false,
+                icon = {
+                    Icon(
+                        imageVector = if (currentRoute == item.route) item.selectedIcon else item.unselectedIcon,
+                        contentDescription = item.title
+                    )
+                },
                 onClick = {
                     navController.navigate(item.route) {
                         navController.graph.startDestinationRoute?.let { route ->
@@ -38,19 +48,8 @@ fun BottomNavigation(navController: NavController) {
                         restoreState = true
                     }
                 },
-                icon = {
-                    Icon(
-                        imageVector = if (currentRoute == item.route) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = item.title
-                    )
-                },
-                label = {
-                    Text(text = item.title)
-                },
-                alwaysShowLabel = false
             )
         }
-
     }
 }
 

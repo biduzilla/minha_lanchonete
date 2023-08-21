@@ -17,16 +17,16 @@ sealed class BottomNavItem(
     val route: String
 ) {
     object Produto : BottomNavItem(
-        title = "Home",
+        title = "Estoque",
         selectedIcon = Icons.Filled.Store,
         unselectedIcon = Icons.Outlined.Store,
-        route = "Home"
+        route = "estoque"
     )
 
     object Balanco : BottomNavItem(
-        title = "Home",
+        title = "Faturamento",
         selectedIcon = Icons.Filled.Payments,
         unselectedIcon = Icons.Outlined.Payments,
-        route = "Home"
+        route = "faturamento"
     )
 }
