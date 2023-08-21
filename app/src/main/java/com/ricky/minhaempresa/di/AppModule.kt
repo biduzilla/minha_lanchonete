@@ -2,6 +2,7 @@ package com.ricky.minhaempresa.di
 
 import android.content.Context
 import androidx.room.Room
+import com.ricky.minhaempresa.common.DataStoreUtil
 import com.ricky.minhaempresa.data.Database
 import com.ricky.minhaempresa.data.dao.BalancoDao
 import com.ricky.minhaempresa.data.dao.ProdutoDao
@@ -43,6 +44,12 @@ object AppModule {
     @Singleton
     fun provideProdutoRepository(database: Database): ProdutoRepository {
         return ProdutoRepositoryImpl(database)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDataStoreUtil(@ApplicationContext context: Context): DataStoreUtil {
+        return DataStoreUtil(context)
     }
 
     @Provides

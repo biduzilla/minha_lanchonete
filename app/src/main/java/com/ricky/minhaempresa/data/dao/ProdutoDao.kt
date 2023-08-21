@@ -13,11 +13,14 @@ import kotlinx.coroutines.flow.Flow
 interface ProdutoDao {
 
     @Query("SELECT * FROM PRODUTO")
-    suspend fun getAllProdutos(): Flow<List<Produto>>
+    fun getAllProdutos(): Flow<List<Produto>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduto(produto: Produto)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateProduto(produto: Produto)
+
     @Delete
     suspend fun deleteProduto(produto: Produto)
 }

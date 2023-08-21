@@ -11,12 +11,18 @@ import kotlinx.coroutines.flow.Flow
 interface BalancoDao {
 
     @Query("SELECT * FROM BALANCO")
-    suspend fun getAllBalanco(): Flow<List<Balanco>>
+    fun getAllBalanco(): Flow<List<Balanco>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBalanco(balanco: Balanco)
+
     @Query("SELECT * FROM Balanco WHERE SUBSTR(data, 4, 2) = :mes AND SUBSTR(data, 7, 4) = :ano")
-    suspend fun getRegistrosDoMesEAno(mes: String, ano: String): Flow<List<Balanco>>
+    fun getRegistrosDoMesEAno(mes: String, ano: String): Flow<List<Balanco>>
+
     @Query("SELECT * FROM Balanco WHERE data BETWEEN :dataSeteDiasAtras AND :dataHoje")
-    suspend fun getBalancosDaSemana(dataSeteDiasAtras: String, dataHoje: String): Flow<List<Balanco>>
+    fun getBalancosDaSemana(
+        dataSeteDiasAtras: String,
+        dataHoje: String
+    ): Flow<List<Balanco>>
 
 }
