@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.LocalBar
+import androidx.compose.material.icons.filled.LunchDining
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -25,10 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,12 +40,11 @@ import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 fun CardProduto(
     modifier: Modifier = Modifier,
     produto: Produto,
-    onAtualizarQtd: (Int) -> Unit,
+    onAddQtd: () -> Unit,
+    onRemoverQtd: () -> Unit,
     onExcluirProduto: () -> Unit,
 ) {
-    var qtd by remember {
-        mutableStateOf(produto.qtd)
-    }
+//    var qtd by remember { mutableStateOf(produto.qtd) }
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
@@ -63,19 +59,27 @@ fun CardProduto(
     ) {
         Column {
             Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                Text(
+                    text = produto.nome,
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
                 IconButton(
-                    onClick = {}, modifier = Modifier
+                    onClick = { onExcluirProduto() }, modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
                 ) {
-                    IconButton(onClick = { onExcluirProduto() }) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = null
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null
+                    )
                 }
             }
             Row(
@@ -86,23 +90,16 @@ fun CardProduto(
                     Modifier
                         .padding(horizontal = 10.dp)
                         .fillMaxHeight(),
-                    verticalArrangement = Arrangement.SpaceBetween,
+                    verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = produto.nome,
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        )
-                    )
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(bottom = 16.dp)
                     ) {
                         IconButton(onClick = {
-                            qtd++
-                            onAtualizarQtd(qtd)
+                            onAddQtd()
                         }) {
                             Icon(
                                 modifier = Modifier.size(32.dp),
@@ -120,8 +117,7 @@ fun CardProduto(
                         Spacer(modifier = Modifier.width(16.dp))
 
                         IconButton(onClick = {
-                            qtd--
-                            onAtualizarQtd(qtd)
+                            onRemoverQtd()
                         }) {
                             Icon(
                                 modifier = Modifier.size(32.dp),
@@ -145,7 +141,8 @@ fun CardProduto(
                             .align(Alignment.Center)
                             .fillMaxSize()
                             .padding(16.dp),
-                        imageVector = Icons.Default.LocalBar,
+                        imageVector = if (produto.tipo == ProdutoTipo.BEBIDA) Icons.Default.LocalBar
+                        else Icons.Default.LunchDining,
                         contentDescription = null
                     )
                 }
@@ -165,8 +162,9 @@ private fun CardProdutoPreview() {
                 medida = "litros",
                 tipo = ProdutoTipo.BEBIDA
             ),
-            onAtualizarQtd = {},
+            onAddQtd = {},
             onExcluirProduto = {},
+            onRemoverQtd = {}
         )
     }
 }

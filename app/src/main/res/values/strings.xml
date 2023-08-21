@@ -8,4 +8,6 @@
     <string name="add_produto">Adicionar</string>
     <string name="cancelar">Cancelar</string>
     <string name="campo_obrigatorio">Campo Obrigatório</string>
+    <string name="deseja_apagar_produto">Deseja apagar o produto?</string>
+    <string name="apagar_produto">Apagar</string>
 </resources>

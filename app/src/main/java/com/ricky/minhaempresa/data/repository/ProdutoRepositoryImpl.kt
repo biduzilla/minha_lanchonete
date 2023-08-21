@@ -8,8 +8,15 @@ import javax.inject.Inject
 
 class ProdutoRepositoryImpl @Inject constructor(private val dao: Database) : ProdutoRepository {
     override suspend fun getAllProdutos(): Flow<List<Produto>> = dao.produtoDao().getAllProdutos()
+
+    override suspend fun getProdutoById(id: String): Produto = dao.produtoDao().getProdutoById(id)
+
     override suspend fun insertProduto(produto: Produto) = dao.produtoDao().insertProduto(produto)
+
     override suspend fun updateProduto(produto: Produto) = dao.produtoDao().updateProduto(produto)
+
     override suspend fun deleteProduto(produto: Produto) = dao.produtoDao().deleteProduto(produto)
+    override suspend fun deleteProdutoById(produtoId: String) =
+        dao.produtoDao().deleteProdutoById(produtoId)
 
 }

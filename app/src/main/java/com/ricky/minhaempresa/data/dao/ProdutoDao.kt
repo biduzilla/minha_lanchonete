@@ -15,6 +15,9 @@ interface ProdutoDao {
     @Query("SELECT * FROM PRODUTO")
     fun getAllProdutos(): Flow<List<Produto>>
 
+    @Query("SELECT * FROM PRODUTO WHERE id = :productId")
+    suspend fun getProdutoById(productId: String): Produto
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduto(produto: Produto)
 
@@ -23,4 +26,7 @@ interface ProdutoDao {
 
     @Delete
     suspend fun deleteProduto(produto: Produto)
+
+    @Query("DELETE FROM PRODUTO WHERE id = :productId")
+    suspend fun deleteProdutoById(productId: String)
 }

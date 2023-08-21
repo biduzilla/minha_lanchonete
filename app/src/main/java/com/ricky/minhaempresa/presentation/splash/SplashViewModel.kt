@@ -24,6 +24,6 @@ class SplashViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(loading = true)
             }
-        }, 3000)
+        }, 2000)
     }
 }

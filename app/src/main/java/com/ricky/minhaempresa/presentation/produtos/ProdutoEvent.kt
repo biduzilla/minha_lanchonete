@@ -1,6 +1,9 @@
 package com.ricky.minhaempresa.presentation.produtos
 
 sealed interface ProdutoEvent {
-    data class OnAtualizarProdutoQtd(val id: String, val qtd:Int) : ProdutoEvent
-    data class OnRemoveProduto(val id: String) : ProdutoEvent
+    data class OnAddQtd(val id: String) : ProdutoEvent
+    data class OnRemoveQtd(val id: String) : ProdutoEvent
+    data class ShowDialog(val id: String) : ProdutoEvent
+    object HideDialog : ProdutoEvent
+    object OnRemoveProduto : ProdutoEvent
 }

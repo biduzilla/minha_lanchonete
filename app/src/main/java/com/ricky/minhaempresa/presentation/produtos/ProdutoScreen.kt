@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ricky.minhaempresa.R
 import com.ricky.minhaempresa.domain.model.ProdutoTipo
 import com.ricky.minhaempresa.presentation.produtos.components.CardProduto
+import com.ricky.minhaempresa.presentation.produtos.components.DialogRemoverProduto
 import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 
 @Composable
@@ -30,6 +30,14 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
     val state = viewModel.state.collectAsState()
 
     Box {
+
+        if (state.value.isShowDialog) {
+            DialogRemoverProduto(onDimiss = {
+                viewModel.onEvent(ProdutoEvent.HideDialog)
+            }, onRemoverProduto = {
+                viewModel.onEvent(ProdutoEvent.OnRemoveProduto)
+            })
+        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
@@ -47,15 +55,9 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
                 CardProduto(
                     modifier = Modifier.padding(10.dp),
                     produto = item,
-                    onAtualizarQtd = { qtd ->
-                        viewModel.onEvent(
-                            ProdutoEvent.OnAtualizarProdutoQtd(
-                                id = item.id,
-                                qtd = qtd
-                            )
-                        )
-                    },
-                    onExcluirProduto = { viewModel.onEvent(ProdutoEvent.OnRemoveProduto(id = item.id)) })
+                    onAddQtd = { viewModel.onEvent(ProdutoEvent.OnAddQtd(id = item.id)) },
+                    onRemoverQtd = { viewModel.onEvent(ProdutoEvent.OnRemoveQtd(id = item.id)) },
+                    onExcluirProduto = { viewModel.onEvent(ProdutoEvent.ShowDialog(id = item.id)) })
             }
             item {
                 Spacer(modifier = Modifier.height(32.dp))
@@ -69,16 +71,9 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
                 CardProduto(
                     modifier = Modifier.padding(10.dp),
                     produto = item,
-                    onAtualizarQtd = { qtd ->
-                        viewModel.onEvent(
-                            ProdutoEvent.OnAtualizarProdutoQtd(
-                                id = item.id,
-                                qtd = qtd
-                            )
-                        )
-                    },
-                    onExcluirProduto = { viewModel.onEvent(ProdutoEvent.OnRemoveProduto(id = item.id)) })
-
+                    onAddQtd = { viewModel.onEvent(ProdutoEvent.OnAddQtd(id = item.id)) },
+                    onRemoverQtd = { viewModel.onEvent(ProdutoEvent.OnRemoveQtd(id = item.id)) },
+                    onExcluirProduto = { viewModel.onEvent(ProdutoEvent.ShowDialog(id = item.id)) })
             }
         }
     }
