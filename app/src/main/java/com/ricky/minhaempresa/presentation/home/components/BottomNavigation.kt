@@ -12,10 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ricky.minhaempresa.navigation.BottomNavItem
+import com.ricky.minhaempresa.navigation.Screens
 import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 
 @Composable
-fun BottomNavigation(navController: NavController) {
+fun BottomNavigation(navController: NavController, isTelaProduto: (Boolean) -> Unit) {
     val items = listOf(
         BottomNavItem.Produto,
         BottomNavItem.Balanco,
@@ -38,6 +39,11 @@ fun BottomNavigation(navController: NavController) {
                     )
                 },
                 onClick = {
+                    if (currentRoute != BottomNavItem.Produto.route) {
+                        isTelaProduto(true)
+                    } else {
+                        isTelaProduto(false)
+                    }
                     navController.navigate(item.route) {
                         navController.graph.startDestinationRoute?.let { route ->
                             popUpTo(route) {
@@ -58,7 +64,7 @@ fun BottomNavigation(navController: NavController) {
 fun BottomNavigationPreviewLightMode() {
     MinhaEmpresaTheme(darkTheme = false) {
         val context = LocalContext.current
-        BottomNavigation(navController = NavController(context))
+        BottomNavigation(navController = NavController(context), {})
     }
 }
 
@@ -67,6 +73,6 @@ fun BottomNavigationPreviewLightMode() {
 fun BottomNavigationPreviewDarkMode() {
     MinhaEmpresaTheme(darkTheme = false) {
         val context = LocalContext.current
-        BottomNavigation(navController = NavController(context))
+        BottomNavigation(navController = NavController(context), {})
     }
 }

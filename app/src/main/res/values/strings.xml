@@ -2,4 +2,10 @@
     <string name="app_name">Minha Lanchonete</string>
     <string name="bebidas">Bebidas</string>
     <string name="insumos">Insumos</string>
+    <string name="dialog_add_produto">Adicionar Produto</string>
+    <string name="nome_produto">Nome do Produto</string>
+    <string name="medida">Medida Ex:Kg, Litros…</string>
+    <string name="add_produto">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="campo_obrigatorio">Campo Obrigatório</string>
 </resources>

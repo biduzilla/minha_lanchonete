@@ -1,6 +1,6 @@
 package com.ricky.minhaempresa.presentation.produtos.components
 
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -26,6 +25,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,16 +43,23 @@ import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 fun CardProduto(
     modifier: Modifier = Modifier,
     produto: Produto,
-    onAddQtd: () -> Unit,
-    onRemoverQtd: () -> Unit,
+    onAtualizarQtd: (Int) -> Unit,
     onExcluirProduto: () -> Unit,
 ) {
+    var qtd by remember {
+        mutableStateOf(produto.qtd)
+    }
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
-            .size(200.dp),
+            .size(150.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+        ),
         shape = RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation()
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp
+        )
     ) {
         Column {
             Row(
@@ -85,13 +95,15 @@ fun CardProduto(
                             fontWeight = FontWeight.Bold
                         )
                     )
-//                    Spacer(modifier = Modifier.height(16.dp))
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(bottom = 16.dp)
                     ) {
-                        IconButton(onClick = { onAddQtd() }) {
+                        IconButton(onClick = {
+                            qtd++
+                            onAtualizarQtd(qtd)
+                        }) {
                             Icon(
                                 modifier = Modifier.size(32.dp),
                                 imageVector = Icons.Default.Add,
@@ -101,13 +113,16 @@ fun CardProduto(
                         Spacer(modifier = Modifier.width(16.dp))
 
                         Text(
-                            text = "${produto.qtd.toString()} ${produto.medida}",
+                            text = "${produto.qtd} ${produto.medida}",
                             style = MaterialTheme.typography.headlineSmall
                         )
 
                         Spacer(modifier = Modifier.width(16.dp))
 
-                        IconButton(onClick = { onRemoverQtd() }) {
+                        IconButton(onClick = {
+                            qtd--
+                            onAtualizarQtd(qtd)
+                        }) {
                             Icon(
                                 modifier = Modifier.size(32.dp),
                                 imageVector = Icons.Default.Remove,
@@ -123,14 +138,13 @@ fun CardProduto(
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 16.dp)
                         .clip(RoundedCornerShape(20.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer)
 
                 ) {
                     Icon(
                         modifier = Modifier
                             .align(Alignment.Center)
                             .fillMaxSize()
-                            .padding(32.dp),
+                            .padding(16.dp),
                         imageVector = Icons.Default.LocalBar,
                         contentDescription = null
                     )
@@ -151,9 +165,8 @@ private fun CardProdutoPreview() {
                 medida = "litros",
                 tipo = ProdutoTipo.BEBIDA
             ),
-            onAddQtd = {},
+            onAtualizarQtd = {},
             onExcluirProduto = {},
-            onRemoverQtd = {}
         )
     }
 }
