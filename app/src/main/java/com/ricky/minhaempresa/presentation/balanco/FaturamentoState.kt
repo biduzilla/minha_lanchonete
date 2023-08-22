@@ -1,7 +1,7 @@
 package com.ricky.minhaempresa.presentation.balanco
 
-import com.ricky.minhaempresa.domain.model.Balanco
+import com.ricky.minhaempresa.domain.model.FaturamentoMesAno
 
 data class FaturamentoState(
-    val faturamentos: List<Balanco> = emptyList()
+    val faturamentos: List<FaturamentoMesAno> = emptyList()
 )

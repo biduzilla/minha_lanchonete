@@ -1,5 +1,6 @@
 package com.ricky.minhaempresa.presentation.produtos
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,9 +49,9 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
                 Spacer(modifier = Modifier.height(50.dp))
                 Text(
                     text = stringResource(id = R.string.bebidas),
-                    style = MaterialTheme.typography.headlineLarge
+                    style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Divider()
+                Divider(color = MaterialTheme.colorScheme.onTertiaryContainer)
             }
             items(state.value.produtos.filter { it.tipo == ProdutoTipo.BEBIDA }) { item ->
                 CardProduto(
@@ -63,9 +65,9 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     text = stringResource(id = R.string.insumos),
-                    style = MaterialTheme.typography.headlineLarge
+                    style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Divider()
+                Divider(color = MaterialTheme.colorScheme.onTertiaryContainer)
             }
             items(state.value.produtos.filter { it.tipo == ProdutoTipo.INSUMO }) { item ->
                 CardProduto(

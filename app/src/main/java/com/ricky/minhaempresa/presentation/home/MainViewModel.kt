@@ -80,7 +80,10 @@ class MainViewModel @Inject constructor(
                 }
                 _state.update {
                     it.copy(
-                        isDialogShow = false
+                        isDialogShow = false,
+                        nomeFaturamento = "",
+                        entrada = "",
+                        saida = ""
                     )
                 }
             }
