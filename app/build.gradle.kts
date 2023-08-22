@@ -70,7 +70,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     //DataStore
-    debugImplementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Extended Icons
     implementation ("androidx.compose.material:material-icons-extended:1.3.1")
