@@ -1,10 +1,10 @@
 package com.ricky.minhaempresa.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Payments
-import androidx.compose.material.icons.filled.Store
-import androidx.compose.material.icons.outlined.Payments
-import androidx.compose.material.icons.outlined.Store
+import androidx.compose.material.icons.filled.Inventory2
+import androidx.compose.material.icons.filled.RequestQuote
+import androidx.compose.material.icons.outlined.Inventory2
+import androidx.compose.material.icons.outlined.RequestQuote
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomNavItem(
@@ -15,15 +15,15 @@ sealed class BottomNavItem(
 ) {
     object Produto : BottomNavItem(
         title = "Estoque",
-        selectedIcon = Icons.Filled.Store,
-        unselectedIcon = Icons.Outlined.Store,
+        selectedIcon = Icons.Filled.Inventory2,
+        unselectedIcon = Icons.Outlined.Inventory2,
         route = "estoque"
     )
 
     object Balanco : BottomNavItem(
         title = "Faturamento",
-        selectedIcon = Icons.Filled.Payments,
-        unselectedIcon = Icons.Outlined.Payments,
+        selectedIcon = Icons.Filled.RequestQuote,
+        unselectedIcon = Icons.Outlined.RequestQuote,
         route = "faturamento"
     )
 }

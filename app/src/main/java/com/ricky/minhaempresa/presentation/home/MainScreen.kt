@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.PostAdd
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.ricky.minhaempresa.navigation.NavigationBottom
 import com.ricky.minhaempresa.presentation.home.components.BottomNavigation
+import com.ricky.minhaempresa.presentation.home.components.DialogAddFaturamento
 import com.ricky.minhaempresa.presentation.home.components.DialogAddProduto
 import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 
@@ -72,10 +76,13 @@ fun MainScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {
+            FloatingActionButton(modifier = Modifier.size(65.dp), onClick = {
                 viewModel.onEvent(MainEvent.ShowDialog)
             }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+                Icon(
+                    imageVector = if (state.value.isProdutos) Icons.Default.AddShoppingCart else Icons.Default.PostAdd,
+                    contentDescription = null
+                )
             }
         }
     ) {
@@ -90,8 +97,13 @@ fun MainScreen(
                 onDimiss = { viewModel.onEvent(MainEvent.ShowDialog) },
             )
         }
-        if(state.value.isDialogShow && !state.value.isProdutos){
-            Toast.makeText(context, "Faturamento", Toast.LENGTH_SHORT).show()
+        if (state.value.isDialogShow && !state.value.isProdutos) {
+            DialogAddFaturamento(
+                state = state,
+                onChangeEntrada = { viewModel.onEvent(MainEvent.OnChangeEntrada(it)) },
+                onChangeSaida = { viewModel.onEvent(MainEvent.OnChangeSaida(it)) },
+                onDimiss = { viewModel.onEvent(MainEvent.ShowDialog) },
+                onAddFaturamento = { viewModel.onEvent(MainEvent.AddFaturamento) })
         }
 
         NavigationBottom(navController = navController)

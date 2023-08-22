@@ -50,7 +50,7 @@ fun CardProduto(
             .fillMaxWidth()
             .size(150.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            containerColor = MaterialTheme.colorScheme.secondary,
         ),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(

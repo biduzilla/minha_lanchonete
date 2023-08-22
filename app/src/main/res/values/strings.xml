@@ -3,6 +3,9 @@
     <string name="bebidas">Bebidas</string>
     <string name="insumos">Insumos</string>
     <string name="dialog_add_produto">Adicionar Produto</string>
+    <string name="dialog_add_faturamento">Adicionar Entrada/Saída</string>
+    <string name="entrada">Entrada</string>
+    <string name="saida">Saída</string>
     <string name="nome_produto">Nome do Produto</string>
     <string name="medida">Medida Ex:Kg, Litros…</string>
     <string name="add_produto">Adicionar</string>

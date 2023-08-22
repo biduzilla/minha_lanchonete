@@ -17,6 +17,7 @@ import com.ricky.minhaempresa.R
 fun CustomTextField(
     value: String,
     @StringRes label:Int,
+    keyboardType:KeyboardType = KeyboardType.Text,
     onChange: (String) -> Unit
 ) {
     TextField(
@@ -28,7 +29,7 @@ fun CustomTextField(
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             autoCorrect = true,
-            keyboardType = KeyboardType.Text,
+            keyboardType = keyboardType,
             imeAction = ImeAction.Next
         ),
     )
