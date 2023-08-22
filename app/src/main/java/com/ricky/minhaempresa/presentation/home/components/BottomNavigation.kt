@@ -31,7 +31,7 @@ fun BottomNavigation(navController: NavController, isTelaProduto: (Boolean) -> U
                 selected = currentRoute == item.route,
                 label = { Text(text = item.title) },
                 colors = NavigationBarItemDefaults.colors(),
-                alwaysShowLabel = false,
+                alwaysShowLabel = true,
                 icon = {
                     Icon(
                         imageVector = if (currentRoute == item.route) item.selectedIcon else item.unselectedIcon,
