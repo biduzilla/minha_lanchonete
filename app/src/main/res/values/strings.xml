@@ -7,6 +7,7 @@
     <string name="entrada">Entrada</string>
     <string name="saida">Saída</string>
     <string name="nome_produto">Nome do Produto</string>
+    <string name="nome">Venda/Gasto</string>
     <string name="medida">Medida Ex:Kg, Litros…</string>
     <string name="add_produto">Adicionar</string>
     <string name="cancelar">Cancelar</string>

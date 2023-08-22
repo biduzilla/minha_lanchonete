@@ -103,7 +103,8 @@ fun MainScreen(
                 onChangeEntrada = { viewModel.onEvent(MainEvent.OnChangeEntrada(it)) },
                 onChangeSaida = { viewModel.onEvent(MainEvent.OnChangeSaida(it)) },
                 onDimiss = { viewModel.onEvent(MainEvent.ShowDialog) },
-                onAddFaturamento = { viewModel.onEvent(MainEvent.AddFaturamento) })
+                onAddFaturamento = { viewModel.onEvent(MainEvent.AddFaturamento) },
+                onChangeNome = { viewModel.onEvent(MainEvent.OnChangeNomeFaturamento(it)) })
         }
 
         NavigationBottom(navController = navController)

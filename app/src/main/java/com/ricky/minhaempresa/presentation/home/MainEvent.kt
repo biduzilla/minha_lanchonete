@@ -10,6 +10,7 @@ sealed interface MainEvent {
     data class OnChangeMedida(val medida: String) : MainEvent
     data class OnChangeEntrada(val entrada: String) : MainEvent
     data class OnChangeSaida(val saida: String) : MainEvent
+    data class OnChangeNomeFaturamento(val nome: String) : MainEvent
     object AddProduto : MainEvent
     object AddFaturamento : MainEvent
     object ShowDialog : MainEvent

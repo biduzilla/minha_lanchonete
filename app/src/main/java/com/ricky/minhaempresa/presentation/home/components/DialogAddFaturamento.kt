@@ -41,6 +41,7 @@ fun DialogAddFaturamento(
     modifier: Modifier = Modifier,
     state: State<MainState>,
     onChangeEntrada: (String) -> Unit,
+    onChangeNome: (String) -> Unit,
     onChangeSaida: (String) -> Unit,
     onDimiss: () -> Unit,
     onAddFaturamento: () -> Unit
@@ -58,9 +59,16 @@ fun DialogAddFaturamento(
         shape = RoundedCornerShape(20.dp),
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                if (state.value.onErrorEntrada) {
+                if (state.value.onErrorNomeFaturamento) {
                     TextError()
                 }
+                CustomTextField(
+                    value = state.value.nomeFaturamento,
+                    onChange = { onChangeNome(it) },
+                    label = R.string.nome,
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 CustomTextField(
                     value = state.value.entrada,
@@ -70,10 +78,6 @@ fun DialogAddFaturamento(
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-
-                if (state.value.onErrorSaida) {
-                    TextError()
-                }
 
                 CustomTextField(
                     value = state.value.saida,
@@ -111,7 +115,9 @@ private fun DialogFaturamentoProduto() {
             state = state,
             onChangeEntrada = {},
             onChangeSaida = {},
-            onDimiss = {}
-        ) {}
+            onDimiss = {},
+            onAddFaturamento = {},
+            onChangeNome = {}
+        )
     }
 }

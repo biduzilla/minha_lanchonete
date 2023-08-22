@@ -9,6 +9,7 @@ import java.util.UUID
 data class Balanco(
     @PrimaryKey
     var id: String = UUID.randomUUID().toString(),
+    var nome:String = "",
     var entrada: BigDecimal = BigDecimal(0.0),
     var saida: BigDecimal = BigDecimal(0.0),
     var data: String

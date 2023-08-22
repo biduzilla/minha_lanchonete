@@ -56,7 +56,17 @@ class MainViewModel @Inject constructor(
             }
 
             MainEvent.AddFaturamento -> {
+
+                if (_state.value.nomeFaturamento.trim().isBlank()) {
+                    _state.update {
+                        it.copy(
+                            onErrorNomeFaturamento = true
+                        )
+                    }
+                    return
+                }
                 val faturamento = Balanco(
+                    nome = _state.value.nomeFaturamento.trim(),
                     entrada = if (_state.value.entrada.isBlank()) BigDecimal(0.0) else BigDecimal(
                         _state.value.entrada
                     ),
@@ -164,6 +174,15 @@ class MainViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         saida = event.saida
+                    )
+                }
+            }
+
+            is MainEvent.OnChangeNomeFaturamento -> {
+                _state.update {
+                    it.copy(
+                        onErrorNomeFaturamento = false,
+                        nomeFaturamento = event.nome
                     )
                 }
             }
