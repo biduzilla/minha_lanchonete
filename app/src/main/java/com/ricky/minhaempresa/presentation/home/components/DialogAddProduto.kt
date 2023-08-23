@@ -38,7 +38,7 @@ import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 @Composable
 fun DialogAddProduto(
     modifier: Modifier = Modifier,
-    state: State<MainState>,
+    state:MainState,
     onChangeNome: (String) -> Unit,
     onChangeTipo: (ProdutoTipo) -> Unit,
     onChangeMedida: (String) -> Unit,
@@ -58,24 +58,24 @@ fun DialogAddProduto(
         shape = RoundedCornerShape(20.dp),
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                if (state.value.onErrorNome) {
+                if (state.onErrorNome) {
                     TextError()
                 }
 
                 CustomTextField(
-                    value = state.value.nome,
+                    value = state.nome,
                     onChange = { onChangeNome(it) },
                     label = R.string.nome_produto
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                if (state.value.onErrorMedida) {
+                if (state.onErrorMedida) {
                     TextError()
                 }
 
                 CustomTextField(
-                    value = state.value.medida,
+                    value = state.medida,
                     onChange = { onChangeMedida(it) },
                     label = R.string.medida
                 )
@@ -89,7 +89,7 @@ fun DialogAddProduto(
                     }
                 ) {
                     TextField(
-                        value = state.value.tipo.name,
+                        value = state.tipo.name,
                         onValueChange = {},
                         readOnly = true,
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -139,14 +139,13 @@ fun DialogAddProduto(
 @Preview
 @Composable
 private fun DialogAddProdutoPreview() {
-    val state = remember { mutableStateOf(MainState()) }
     MinhaEmpresaTheme {
         val context = LocalContext.current
         DialogAddProduto(
             onChangeMedida = {},
             onChangeNome = {},
             onChangeTipo = {},
-            state = state,
+            state = MainState(),
             onDimiss = {}
         ) {}
     }

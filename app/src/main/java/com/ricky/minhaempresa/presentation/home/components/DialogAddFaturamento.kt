@@ -39,7 +39,7 @@ import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 @Composable
 fun DialogAddFaturamento(
     modifier: Modifier = Modifier,
-    state: State<MainState>,
+    state: MainState,
     onChangeEntrada: (String) -> Unit,
     onChangeNome: (String) -> Unit,
     onChangeSaida: (String) -> Unit,
@@ -59,11 +59,11 @@ fun DialogAddFaturamento(
         shape = RoundedCornerShape(20.dp),
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                if (state.value.onErrorNomeFaturamento) {
+                if (state.onErrorNomeFaturamento) {
                     TextError()
                 }
                 CustomTextField(
-                    value = state.value.nomeFaturamento,
+                    value = state.nomeFaturamento,
                     onChange = { onChangeNome(it) },
                     label = R.string.nome,
                 )
@@ -71,7 +71,7 @@ fun DialogAddFaturamento(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 CustomTextField(
-                    value = state.value.entrada,
+                    value = state.entrada,
                     onChange = { onChangeEntrada(it) },
                     label = R.string.entrada,
                     keyboardType = KeyboardType.Decimal
@@ -80,7 +80,7 @@ fun DialogAddFaturamento(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 CustomTextField(
-                    value = state.value.saida,
+                    value = state.saida,
                     onChange = { onChangeSaida(it) },
                     label = R.string.saida,
                     keyboardType = KeyboardType.Decimal
@@ -112,7 +112,7 @@ private fun DialogFaturamentoProduto() {
     val state = remember { mutableStateOf(MainState()) }
     MinhaEmpresaTheme {
         DialogAddFaturamento(
-            state = state,
+            state = MainState(),
             onChangeEntrada = {},
             onChangeSaida = {},
             onDimiss = {},

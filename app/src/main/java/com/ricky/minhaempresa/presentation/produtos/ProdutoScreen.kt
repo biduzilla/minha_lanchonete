@@ -27,17 +27,18 @@ import com.ricky.minhaempresa.presentation.produtos.components.DialogRemoverProd
 import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 
 @Composable
-fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
-
-    val state = viewModel.state.collectAsState()
+fun ProdutoScreen(
+    state: ProdutosState,
+    onEvent: (ProdutoEvent) -> Unit
+) {
 
     Box {
 
-        if (state.value.isShowDialog) {
+        if (state.isShowDialog) {
             DialogRemoverProduto(onDimiss = {
-                viewModel.onEvent(ProdutoEvent.HideDialog)
+                onEvent(ProdutoEvent.HideDialog)
             }, onRemoverProduto = {
-                viewModel.onEvent(ProdutoEvent.OnRemoveProduto)
+                onEvent(ProdutoEvent.OnRemoveProduto)
             })
         }
         LazyColumn(
@@ -53,13 +54,13 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
                 )
                 Divider(color = MaterialTheme.colorScheme.onTertiaryContainer)
             }
-            items(state.value.produtos.filter { it.tipo == ProdutoTipo.BEBIDA }) { item ->
+            items(state.produtos.filter { it.tipo == ProdutoTipo.BEBIDA }) { item ->
                 CardProduto(
                     modifier = Modifier.padding(10.dp),
                     produto = item,
-                    onAddQtd = { viewModel.onEvent(ProdutoEvent.OnAddQtd(id = item.id)) },
-                    onRemoverQtd = { viewModel.onEvent(ProdutoEvent.OnRemoveQtd(id = item.id)) },
-                    onExcluirProduto = { viewModel.onEvent(ProdutoEvent.ShowDialog(id = item.id)) })
+                    onAddQtd = { onEvent(ProdutoEvent.OnAddQtd(id = item.id)) },
+                    onRemoverQtd = { onEvent(ProdutoEvent.OnRemoveQtd(id = item.id)) },
+                    onExcluirProduto = { onEvent(ProdutoEvent.ShowDialog(id = item.id)) })
             }
             item {
                 Spacer(modifier = Modifier.height(32.dp))
@@ -69,13 +70,13 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
                 )
                 Divider(color = MaterialTheme.colorScheme.onTertiaryContainer)
             }
-            items(state.value.produtos.filter { it.tipo == ProdutoTipo.INSUMO }) { item ->
+            items(state.produtos.filter { it.tipo == ProdutoTipo.INSUMO }) { item ->
                 CardProduto(
                     modifier = Modifier.padding(10.dp),
                     produto = item,
-                    onAddQtd = { viewModel.onEvent(ProdutoEvent.OnAddQtd(id = item.id)) },
-                    onRemoverQtd = { viewModel.onEvent(ProdutoEvent.OnRemoveQtd(id = item.id)) },
-                    onExcluirProduto = { viewModel.onEvent(ProdutoEvent.ShowDialog(id = item.id)) })
+                    onAddQtd = { onEvent(ProdutoEvent.OnAddQtd(id = item.id)) },
+                    onRemoverQtd = { onEvent(ProdutoEvent.OnRemoveQtd(id = item.id)) },
+                    onExcluirProduto = { onEvent(ProdutoEvent.ShowDialog(id = item.id)) })
             }
         }
     }
@@ -85,6 +86,6 @@ fun ProdutoScreen(viewModel: ProdutoViewModel = hiltViewModel()) {
 @Composable
 private fun ProdutoScreenPreview() {
     MinhaEmpresaTheme {
-        ProdutoScreen()
+        ProdutoScreen(state = ProdutosState(), {})
     }
 }

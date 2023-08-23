@@ -11,7 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,17 +21,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ricky.minhaempresa.R
 import com.ricky.minhaempresa.navigation.Screens
 import com.ricky.minhaempresa.ui.theme.MinhaEmpresaTheme
 
 @Composable
-fun SplashScreen(viewModel: SplashViewModel = hiltViewModel(), navController: NavController) {
-    val state = viewModel.state.collectAsState()
+fun SplashScreen(state: SplashState, navController: NavController) {
+//    val state = viewModel.state.collectAsState()
 
-    if (state.value.loading) {
+    if (state.loading) {
         navController.navigate(Screens.HomeScreen.route)
     }
 
@@ -59,7 +60,11 @@ fun SplashScreen(viewModel: SplashViewModel = hiltViewModel(), navController: Na
 @Composable
 fun SplashScreenPreview() {
     MinhaEmpresaTheme {
+        val state: State<SplashState> = remember { mutableStateOf(SplashState()) }
         val context = LocalContext.current
-        SplashScreen(navController = NavController(context))
+        SplashScreen(
+            navController = NavController(context),
+            state = SplashState()
+        )
     }
 }

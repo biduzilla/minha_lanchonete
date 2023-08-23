@@ -37,7 +37,7 @@ fun CardEntradasSaidas(
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .weight(2f)
+                .weight(1f)
                 .padding(horizontal = 16.dp)
         ) {
             Text(
@@ -54,7 +54,7 @@ fun CardEntradasSaidas(
         }
         Text(
             text = balanco.nome,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .weight(1f)

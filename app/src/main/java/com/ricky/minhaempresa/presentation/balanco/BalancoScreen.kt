@@ -19,9 +19,8 @@ import com.ricky.minhaempresa.presentation.balanco.components.ListViewEntradas
 
 @Composable
 fun BalancoScreen(
-    viewModel: FaturamentoViewModel = hiltViewModel()
+    state: FaturamentoState,
 ) {
-    val state = viewModel.state.collectAsState()
     LazyColumn(Modifier.padding(20.dp)) {
         item {
             Spacer(modifier = Modifier.height(50.dp))
@@ -30,7 +29,7 @@ fun BalancoScreen(
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
             )
         }
-        items(state.value.faturamentos) { faturamento ->
+        items(state.faturamentos) { faturamento ->
             ListViewEntradas(
                 faturamentos = faturamento,
                 modifier = Modifier.padding(vertical = 20.dp)

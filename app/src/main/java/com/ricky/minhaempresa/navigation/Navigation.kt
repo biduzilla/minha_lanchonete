@@ -7,12 +7,19 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.ricky.minhaempresa.presentation.home.MainScreen
+import com.ricky.minhaempresa.presentation.home.MainViewModel
 import com.ricky.minhaempresa.presentation.splash.SplashScreen
+import com.ricky.minhaempresa.presentation.splash.SplashState
+import com.ricky.minhaempresa.presentation.splash.SplashViewModel
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -24,10 +31,22 @@ fun NavAnimated() {
         startDestination = Screens.SplashScreen.route
     ) {
         composableSlideHorizontally(route = Screens.SplashScreen.route) {
-            SplashScreen(navController = navControler)
+            val viewModel = hiltViewModel<SplashViewModel>()
+            val state by viewModel.state.collectAsState()
+
+            SplashScreen(
+                navController = navControler,
+                state = state
+            )
         }
         composableSlideHorizontally(route = Screens.HomeScreen.route) {
-            MainScreen()
+            val viewModel = hiltViewModel<MainViewModel>()
+            val state by viewModel.state.collectAsState()
+
+            MainScreen(
+                state = state,
+                onEvent = viewModel::onEvent
+            )
         }
     }
 }
